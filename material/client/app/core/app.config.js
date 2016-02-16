@@ -24,7 +24,7 @@
         var date = new Date();
         var year = date.getFullYear();
         var main = {
-            brand: 'Material',
+            brand: 'Lily',
             name: 'Lisa',
             year: year,
             layout: 'wide',                                 // 'boxed', 'wide'

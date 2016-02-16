@@ -37,7 +37,7 @@
 
             $stateProvider.state('dashboard', {
                 url: '/dashboard',
-                templateUrl: 'app/dashboard/dashboard.html'
+                templateUrl: 'app/dashboard/dashboard_lily.html'
             });
 
         }]

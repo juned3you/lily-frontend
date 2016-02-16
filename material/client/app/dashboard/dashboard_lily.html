@@ -1,0 +1,105 @@
+<div class="page page-dashboard" data-ng-controller="DashboardLilyCtrl">
+
+	<div class="row">
+		<div class="col-md-12">
+			<span> <img
+				src="images/g1.jpg" class="img-circle img150_150"> <span data-translate="Username"></span>
+				<span data-translate="Company"></span>
+				<span data-translate="Department/Office"></span>			
+			</span>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body padding-md">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel">
+										<div class="panel-body">
+											<div class="row">
+												<div data-echarts data-options="pie.options1"
+													style="height: 120px;"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-body padding-md">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel">
+										<div class="panel-body">
+											<div class="row">
+												<div data-echarts data-options="pie.options2"
+													style="height: 120px;"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default panel-minimal">
+						<div class="divider divider-md"></div>
+						<div class="panel-body">
+							<div data-echarts data-options="line2.options"
+								style="height: 350px;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="col-lg-4">
+			<section class="panel">
+				<div class="divider divider-md"></div>
+				<div class="panel-body">
+
+					<div class="progressbar-container">
+						<uib-progressbar class="progressbar-xs" value="76.49"
+							type="success"></uib-progressbar>
+						<p class="desc">
+							7649 steps <span class="pull-right color-success">/10000
+								per day</span>
+						</p>
+					</div>
+
+					<div class="progressbar-container">
+						<uib-progressbar class="progressbar-xs" value="35" type="warning"></uib-progressbar>
+						<p class="desc">
+							35 men <span class="pull-right color-warning">/45 men
+								energy</span>
+						</p>
+					</div>
+
+					<div class="progressbar-container">
+						<uib-progressbar class="progressbar-xs" value="73" type="info"></uib-progressbar>
+						<p class="desc">
+							0734 Rours <span class="pull-right color-info">/8R per
+								night</span>
+						</p>
+					</div>
+
+				</div>
+			</section>
+		</div>
+
+	</div>
+</div>

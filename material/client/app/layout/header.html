@@ -24,7 +24,7 @@
     </div>
 
     <div class="top-nav">
-        <ul class="nav-left list-unstyled">
+        <!-- ul class="nav-left list-unstyled">
             <li>
                 <a href="#/" data-toggle-nav-collapsed-min
                    md-button aria-label="toggle-nav-collapsed-min"
@@ -301,11 +301,24 @@
                     </div>
                 </div>
             </li>
-        </ul> 
+        </ul--> 
 
         <ul class="nav-right pull-right list-unstyled">
 
-            <li class="dropdown text-normal nav-profile"    uib-dropdown is-open="status.isopenProfile">
+			<li>
+				<md-button href="#"> home </md-button>
+			</li>
+			
+			<li>
+				<md-button href="#"> settings </md-button>
+			</li>
+			
+			<li>
+				<md-button href="#"> logout </md-button>
+			</li>
+			
+            
+            <!-- li class="dropdown text-normal nav-profile"    uib-dropdown is-open="status.isopenProfile">
                 <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled" md-button aria-label="profile">
                     <img src="images/g1.jpg" alt="" class="img-circle img30_30">
                     <span class="hidden-xs">
@@ -351,7 +364,7 @@
                     <li data-ng-show="lang !== 'Русский язык' ">
                         <a href="javascript:;" data-ng-click="setLang('Русский язык')"><div class="flag flags-russia"></div> Русский язык</a></li>
                 </ul>
-            </li>
+            </li -->
         </ul>
     </div>
 </header>

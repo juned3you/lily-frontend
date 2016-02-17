@@ -388,12 +388,12 @@
             series : [
                 {
                     type : 'pie',
-                    center : ['12.5%', '50%'],
+                    center : ['50%', '50%'],
                     radius : radius,
                     itemStyle : labelFromatter,
                     data : [
-                        {name:'Goal Completed', value:54, itemStyle : labelTop},
-                        {name:'other', value:46, itemStyle : labelBottom}
+                        {name:'Monthly Goal Completion', value:75, itemStyle : labelTop},
+                        {name:'other', value:25, itemStyle : labelBottom}
                     ]
                 }
             ]
@@ -403,12 +403,12 @@
                 series : [
                     {
                         type : 'pie',
-                        center : ['37.5%', '50%'],
+                        center : ['50%', '50%'],
                         radius : radius,
                         itemStyle : labelFromatter,
                         data : [
-                            {name:'Growth', value:84, itemStyle : labelTop},
-                            {name:'other', value:16, itemStyle : labelBottom}
+                            {name:'Week/Week Growth', value:25, itemStyle : labelTop},
+                            {name:'other', value:75, itemStyle : labelBottom}
                         ]
                     }
                 ]
@@ -420,10 +420,10 @@
                     trigger: 'axis'
                 },
                 legend: {
-                    data:['Win']
+                    data:['Sleep', 'Sport']
                 },
                 toolbox: {
-                    show : true,
+                    show : false,
                     feature : {
                         restore : {show: true, title: "restore"},
                         saveAsImage : {show: true, title: "save as image"}
@@ -444,35 +444,25 @@
                 ],
                 series : [
                     {
-                        name:'Win',
-                        type:'line',
-                        stack: 'Sum',
-                        data:[120, 132, 101, 134, 90, 230, 210]
+                        name:'Sleep',
+                        type:'line',                       
+                        data:[7, 6, 8, 7, 5, 8, 9],
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: 'Max'}                                
+                            ]
+                        }
                     },
                     {
-                        name:'Email',
-                        type:'line',
-                        stack: 'Sum',
-                        data:[220, 182, 191, 234, 290, 330, 310]
-                    },
-                    {
-                        name:'Video Ads',
-                        type:'line',
-                        stack: 'Sum',
-                        data:[150, 232, 201, 154, 190, 330, 410]
-                    },
-                    {
-                        name:'Direct',
-                        type:'line',
-                        stack: 'Sum',
-                        data:[320, 332, 301, 334, 390, 330, 320]
-                    },
-                    {
-                        name:'Search',
-                        type:'line',
-                        stack: 'Sum',
-                        data:[50, 58, 100, 150, 79, 120, 140]
-                    }
+                        name:'Sport',
+                        type:'line',                        
+                        data:[2, 1, 3, 1, 3, 1, 3],
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: 'Max'}                                
+                            ]
+                        }
+                    }                    
                 ]
             };
     }

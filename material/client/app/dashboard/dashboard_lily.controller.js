@@ -446,7 +446,7 @@
                     {
                         name:'Sleep',
                         type:'line',                       
-                        data:[7, 6, 8, 7, 5, 8, 9],
+                        data:[5, 4, 5, 7, 5, 5, 4],
                         markPoint : {
                             data : [
                                 {type : 'max', name: 'Max'}                                
@@ -456,7 +456,7 @@
                     {
                         name:'Sport',
                         type:'line',                        
-                        data:[2, 1, 3, 1, 3, 1, 3],
+                        data:[2, 5, 7, 5, 3, 4, 8],
                         markPoint : {
                             data : [
                                 {type : 'max', name: 'Max'}                                

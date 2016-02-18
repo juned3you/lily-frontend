@@ -6,17 +6,16 @@
 				<span> <img src="images/g1.jpg" class="img-circle img100_100">
 				</span>
 				<div style="float: right; margin-left: 15px" class="text-left">
-					<div data-translate="Username" class="h3" style="margin-bottom: 0px"></div>
+					<div data-translate="Username" class="h3"
+						style="margin-bottom: 0px"></div>
 					<div data-translate="Company"></div>
 					<div data-translate="Department/Office"></div>
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 
-	<div class="row" style="height:20px"></div>
+	<div class="row" style="height: 20px"></div>
 
 	<div class="row">
 		<div class="col-md-8">
@@ -64,7 +63,7 @@
 				<div class="col-md-12">
 					<div class="panel panel-default panel-minimal">
 						<div class="divider divider-md"></div>
-						<div class="panel-heading text-center">Last 7 days</div>
+						<div class="panel-heading text-center"><h4>Last 7 days</h4></div>
 						<div class="panel-body">
 							<div data-echarts data-options="line2.options"
 								style="height: 250px;"></div>
@@ -79,41 +78,70 @@
 		<div class="col-lg-4">
 			<section class="panel" style="height: 100%">
 				<div class="divider divider-md"></div>
-				<div class="panel-heading">Activities</div>
+				<div class="panel-heading text-center"><h4>Activities</h4></div>
 				<div class="panel-body" style="height: 500px">
-
-					<div class="progressbar-container">
-						<h5>Steps</h5>
-						<uib-progressbar class="progressbar-xs" value="56.78"
-							type="success"></uib-progressbar>
-						<p class="desc">
-							<span class="color-success"> 5678 steps /10000 per day</span>
-						</p>
+				
+					<div class="row">
+						<div class="col-md-1 col-sm-1 col-xs-1">
+							<div class="square"></div>
+						</div>
+						<div class="col-md-10  col-sm-10 col-xs-10" style="margin-left: 15px">
+							<div class="progressbar-container">
+								<h5>Steps</h5>
+								<uib-progressbar class="progressbar-xs" value="56.78"
+									type="success"></uib-progressbar>
+								<p class="desc">
+									<span class="color-success"> 5678 steps /10000 per day</span>
+								</p>
+							</div>
+						</div>
 					</div>
 
-					<div class="progressbar-container">
-						<h5>Run</h5>
-						<uib-progressbar class="progressbar-xs" value="37.5"
-							type="warning"></uib-progressbar>
-						<p class="desc">
-							<span class="text-center color-warning"> 15min / 40min</span>
-						</p>
+					<div class="row">
+						<div class="col-md-1 col-sm-1 col-xs-1">
+							<div class="square"></div>
+						</div>
+						<div class="col-md-10  col-sm-9 col-xs-9" style="margin-left: 15px">
+							<div class="progressbar-container">
+								<h5>Run</h5>
+								<uib-progressbar class="progressbar-xs" value="37.5"
+									type="warning"></uib-progressbar>
+								<p class="desc">
+									<span class="text-center color-warning"> 15min / 40min</span>
+								</p>
+							</div>
+						</div>
 					</div>
 
-					<div class="progressbar-container">
-						<h5>Sleep</h5>
-						<uib-progressbar class="progressbar-xs" value="87.5" type="info"></uib-progressbar>
-						<p class="desc">
-							<span class="text-center color-warning"> 7h / 8h</span>
-						</p>
+
+					<div class="row">
+						<div class="col-md-1 col-sm-1 col-xs-1">
+							<div class="square"></div>
+						</div>
+						<div class="col-md-10  col-sm-9 col-xs-9" style="margin-left: 15px">
+							<div class="progressbar-container">
+								<h5>Sleep</h5>
+								<uib-progressbar class="progressbar-xs" value="87.5" type="info"></uib-progressbar>
+								<p class="desc">
+									<span class="text-center color-warning"> 7h / 8h</span>
+								</p>
+							</div>
+						</div>
 					</div>
 
-					<div class="progressbar-container">
-						<h5>Sports HR</h5>
-						<uib-progressbar class="progressbar-xs" value="50" type="info"></uib-progressbar>
-						<p class="desc">
-							<span class="text-center color-warning"> 20min / 40min</span>
-						</p>
+					<div class="row">
+						<div class="col-md-1 col-sm-1 col-xs-1">
+							<div class="square"></div>
+						</div>
+						<div class="col-md-10  col-sm-9 col-xs-9" style="margin-left: 15px">
+							<div class="progressbar-container">
+								<h5>Sports HR</h5>
+								<uib-progressbar class="progressbar-xs" value="50" type="info"></uib-progressbar>
+								<p class="desc">
+									<span class="text-center color-warning"> 20min / 40min</span>
+								</p>
+							</div>
+						</div>
 					</div>
 
 				</div>

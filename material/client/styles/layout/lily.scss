@@ -13,7 +13,7 @@
 
 @media screen and (max-width: 767px) {
 	.user-details {
-		width: 75%;		
+		width: 90%;		
 	}
 	
 }
@@ -21,19 +21,19 @@
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
 	.user-details {
-		width: 75%;		
+		width: 90%;		
 	}
 }
 
 /* tablets/desktops and up ----------- */
 @media (min-width: 992px) and (max-width: 1199px) {
 	.user-details {
-		width: 50%;		
+		width: 60%;		
 	}	
 }
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
 	.user-details {
-		width: 50%;		
+		width: 60%;		
 	}	
 }

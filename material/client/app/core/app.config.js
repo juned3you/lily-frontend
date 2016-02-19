@@ -28,7 +28,7 @@
             name: 'Lisa',
             year: year,
             layout: 'wide',                                 // 'boxed', 'wide'
-            menu: 'vertical',                               // 'horizontal', 'vertical', 'collapsed'
+            menu: 'collapsed',                               // 'horizontal', 'vertical', 'collapsed'
             fixedHeader: true,                              // true, false
             fixedSidebar: true,                             // true, false
             pageTransition: pageTransitionOpts[0],          // 0, 1, 2, 3... and build your own

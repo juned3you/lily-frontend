@@ -365,7 +365,7 @@
                     textStyle: {
                         color: $scope.color.text,
                         baseline : 'bottom',
-                        fontSize: 20
+                        fontSize: 24                        
                     }
                 }
             },

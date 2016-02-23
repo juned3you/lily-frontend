@@ -31,13 +31,18 @@
             });
 
             $urlRouterProvider
-                .when('/', '/dashboard')
-                .otherwise('/dashboard');
+                .when('/', '/page/signin')
+                .otherwise('/page/signin');
 
 
             $stateProvider.state('dashboard', {
                 url: '/dashboard',
                 templateUrl: 'app/dashboard/dashboard_lily.html'
+            });
+            
+            $stateProvider.state('signin', {
+                url: '/page/signin',
+                templateUrl: 'app/page/signin.html'
             });
 
         }]

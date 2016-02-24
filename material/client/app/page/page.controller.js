@@ -22,9 +22,14 @@
 
 	function authCtrl($scope, $window, $location) {
 
-		$scope.user = {};
-		$scope.user.email = null;
-		$scope.user.password = null;
+		 var original;
+
+	        $scope.user = {
+	            email: '',
+	            passowrd: ''
+	        }   
+
+	        original = angular.copy($scope.user);
 
 		$scope.login = function() {
 			$location.url('/')
@@ -41,6 +46,10 @@
 		$scope.unlock = function() {
 			$location.url('/')
 		}
+		
+		$scope.canSubmit = function() {
+            return $scope.loginForm.$valid && !angular.equals($scope.user, original);
+        };
 
 		$scope.checkLogin = function() {
 

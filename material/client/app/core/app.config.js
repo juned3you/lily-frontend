@@ -6,6 +6,18 @@
     .config(['$mdThemingProvider', mdConfig]);
 
     function appConfig() {
+    	
+    	var endpointUrl = "http://localhost:9000";
+    	//var endpointUrl = "http://vps250330.ovh.net/lily"
+    	// Config for server.
+    	var server = {     		
+    		loginUrl: endpointUrl + "/user/login",
+    		
+    		jsonHeaders : {
+    			'Content-Type' : 'application/json'			
+    		}
+    	};
+    	
         var pageTransitionOpts = [
             {
                 name: 'Fade up',
@@ -48,7 +60,8 @@
         return {
             pageTransitionOpts: pageTransitionOpts,
             main: main,
-            color: color
+            color: color,
+            server: server
         }
     }
 

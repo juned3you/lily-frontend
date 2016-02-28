@@ -3,7 +3,7 @@
 
 	angular.module('app.page').controller('invoiceCtrl',
 			[ '$scope', '$window', invoiceCtrl ]).controller('authCtrl',
-			[ '$scope', '$window', '$location', authCtrl ]);
+			[ '$scope', '$window', '$location', 'pageService', authCtrl ]);
 
 	function invoiceCtrl($scope, $window) {
 		var printContents, originalContents, popupWin;
@@ -20,16 +20,16 @@
 		}
 	}
 
-	function authCtrl($scope, $window, $location) {
+	function authCtrl($scope, $window, $location, pageService) {
 
-		 var original;
+		var original;
 
-	        $scope.user = {
-	            email: '',
-	            passowrd: ''
-	        }   
+		$scope.user = {
+			email : '',
+			password : ''
+		}
 
-	        original = angular.copy($scope.user);
+		original = angular.copy($scope.user);
 
 		$scope.login = function() {
 			$location.url('/')
@@ -46,19 +46,19 @@
 		$scope.unlock = function() {
 			$location.url('/')
 		}
-		
+
 		$scope.canSubmit = function() {
-            return $scope.loginForm.$valid && !angular.equals($scope.user, original);
-        };
+			return $scope.loginForm.$valid
+					&& !angular.equals($scope.user, original);
+		};
 
+		/**
+		 * Login
+		 */
 		$scope.checkLogin = function() {
-
-			if ("admin@lily.com" == $scope.user.email
-					&& "admin" == $scope.user.password) {
-				$location.url('/dashboard')
-			} else {
-				alert("Wrong credentials");
-			}
+			pageService.login($scope.user).then(function(data) {
+				console.log(data);				
+			});
 		}
 	}
 

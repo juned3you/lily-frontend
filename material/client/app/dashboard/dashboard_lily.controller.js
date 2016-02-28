@@ -2,14 +2,15 @@
     'use strict';
 
     angular.module('app')
-        .controller('DashboardLilyCtrl', ['$scope', DashboardLilyCtrl])
+        .controller('DashboardLilyCtrl', ['$scope', 'dashboardService', DashboardLilyCtrl])
 
-    function DashboardLilyCtrl($scope) {
+    function DashboardLilyCtrl($scope, dashboardService) {
         // success: #8BC34A 139,195,74
         // info: #00BCD4 0,188,212
         // gray: #EDF0F1 237,240,241
 
-        // Traffic chart
+        // Traffic chart    	
+    	
         $scope.combo = {};
         $scope.combo.options = {
             legend: {

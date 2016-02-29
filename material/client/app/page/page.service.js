@@ -10,20 +10,23 @@
 		 * Login endpoint.
 		 */
 		this.login = function(user) {
-			return $q(function(resolve, reject) {
-				$http({
-					url :  appConfig.server.loginUrl,
-					method : "POST",
-					data : user,
-					headers : appConfig.server.jsonHeaders
-				}).success(function(response) {
-					resolve(response);
-				}).error(function(data, status) {
-					reject({
-						data : data,
-						status : status
-					});
-				});
+			return $http({
+				url : appConfig.server.loginUrl,
+				method : "POST",
+				data : user,
+				headers : appConfig.server.jsonHeaders
+			});
+		}
+		
+		/**
+		 * User create endpoint.
+		 */
+		this.createUser = function(user) {
+			return $http({
+				url : appConfig.server.registerUrl,
+				method : "POST",
+				data : user,
+				headers : appConfig.server.jsonHeaders
 			});
 		}
 	}

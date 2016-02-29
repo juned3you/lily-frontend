@@ -2,14 +2,29 @@
     'use strict';
 
     angular.module('app')
-        .controller('DashboardLilyCtrl', ['$scope', 'dashboardService', DashboardLilyCtrl])
+        .controller('DashboardLilyCtrl', ['$scope', '$rootScope', '$location', '$mdDialog', 'dashboardService', DashboardLilyCtrl])
 
-    function DashboardLilyCtrl($scope, dashboardService) {
+    function DashboardLilyCtrl($scope, $rootScope, $location, $mdDialog, dashboardService) {
         // success: #8BC34A 139,195,74
         // info: #00BCD4 0,188,212
         // gray: #EDF0F1 237,240,241
 
         // Traffic chart    	
+    	
+    	$scope.showAlert = function(title, msg) {
+			$mdDialog.show($mdDialog.alert().parent(
+					angular.element(document.querySelector('#popupContainer')))
+					.clickOutsideToClose(true).title(title).content(
+							msg).ariaLabel(msg).ok('Ok')
+			// .targetEvent(ev)
+			);
+		};
+		
+    	if($rootScope.user == undefined || $rootScope.user == null || $rootScope.user.email == null){
+    		$scope.showAlert("User is not signed in. Redirecting it to login page..");
+    		$location.url('/page/signin')
+    		return;
+    	}
     	
         $scope.combo = {};
         $scope.combo.options = {

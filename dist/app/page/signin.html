@@ -10,27 +10,41 @@
                             <h1><a href="#/">{{main.brand}}</a></h1>
                         </section>
 
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" name="loginForm" class="form-horizontal form-validation">
                             <fieldset>
-                                <div class="form-group">
-                                    <div class="ui-input-group">        
-                                        <input type="text" required class="form-control">
-                                        <span class="input-bar"></span>
+                                <md-input-container class="md-block">
                                         <label>Email</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="ui-input-group">        
-                                        <input type="text" required class="form-control">
-                                        <span class="input-bar"></span>
+                                        <md-icon class="zmdi zmdi-account-o"></md-icon>
+                                        <input required 
+                                               type="email"
+                                               name="email" 
+                                               ng-model="user.email"
+                                               ng-pattern="/^.+@.+\..+$/" />
+                                        <div ng-messages="loginForm.email.$error" multiple ng-if='loginForm.email.$dirty'>
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="pattern">It must be an e-mail address.</div>
+                                        </div>
+                                    </md-input-container>
+
+                                    <div class="divider divider-md"></div>
+                                    <md-input-container class="md-block">
                                         <label>Password</label>
-                                    </div>
-                                </div>
+                                        <md-icon class="zmdi zmdi-lock-outline"></md-icon>
+                                        <input required 
+                                               type="password"
+                                               name="password" 
+                                               ng-model="user.password">
+                                        <div ng-messages="loginForm.password.$error" multiple ng-if='loginForm.password.$dirty'>
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>     
                             </fieldset>
                         </form>
                     </div>
-                    <div class="card-action no-border text-right">
-                        <a href="#/" class="color-primary">Sign in</a>
+                    <div class="card-action no-border text-right">                        
+                        <md-button type="submit" ng-click="checkLogin()"
+                                               class="md-raised btn-w-md md-primary"
+                                               data-ng-disabled="!canSubmit()">Login</md-button>
                     </div>
                 </div>
 

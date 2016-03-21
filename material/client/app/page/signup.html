@@ -80,9 +80,9 @@
 									<div class="ui-input-group">
 										<md-input-container class="md-block"> <input
 											name="password" type="password" required class="form-control"
-											required ng-model="newUser.repassword" aria-label="repassword"
-											data-ng-maxlength=50> <span class="input-bar"></span>
-										<label>Retype Password</label>
+											required ng-model="newUser.repassword"
+											aria-label="repassword" data-ng-maxlength=50> <span
+											class="input-bar"></span> <label>Retype Password</label>
 										<div ng-messages="registerForm.repassword.$error" multiple
 											ng-if='registerForm.repassword.$dirty'>
 											<div ng-message="required">Password is required.</div>
@@ -102,13 +102,24 @@
 						</form>
 					</div>
 					<div class="card-action no-border text-right">
-						<a href="#/page/signin">Login</a> <a href="javascript:;" ng-click="signup()"
-							class="color-primary" data-ng-disabled="!canSubmitRegistration()">Sign
-							Up</a>
+						<a href="javascript:;" ng-click="onLinkWearable()">Link your
+							wearable</a> <a href="#/page/signin">Login</a> <a href="javascript:;"
+							ng-click="signup()" class="color-primary"
+							data-ng-disabled="!canSubmitRegistration()">Sign Up</a>
 					</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
+
+	<script type="text/ng-template" id="modalWindow.html">                        
+                            <div class="modal-body">
+                                <iframe width="100%" height="500" ng-src="{{detailFrame}}" style="border: none"></iframe>
+                            </div>
+                            <div class="modal-footer">
+                                <button ui-wave class="btn btn-flat btn-default" ng-click="cancel()">Cancel</button>
+                                <button ui-wave class="btn btn-flat btn-primary" ng-click="ok()">OK</button>
+                            </div>
+                        </script>
 </div>

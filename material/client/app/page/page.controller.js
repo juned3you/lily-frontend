@@ -1,11 +1,16 @@
 (function() {
 	'use strict';
 
-	angular.module('app.page').controller('invoiceCtrl',
-			[ '$scope', '$window', invoiceCtrl ]).controller(
-			'authCtrl',
-			[ '$scope', '$window', '$location', '$mdDialog', '$rootScope', 'pageService',
-					authCtrl ]);
+	angular
+			.module('app.page')
+			.controller('invoiceCtrl', [ '$scope', '$window', invoiceCtrl ])
+			.controller(
+					'FrameModalInstanceCtrl',
+					[ '$scope', '$sce', '$uibModalInstance', 'items', FrameModalInstanceCtrl ])
+			.controller(
+					'authCtrl',
+					[ '$scope', '$window', '$location', '$mdDialog',
+							'$rootScope', '$uibModal', 'pageService', authCtrl ]);
 
 	function invoiceCtrl($scope, $window) {
 		var printContents, originalContents, popupWin;
@@ -22,22 +27,37 @@
 		}
 	}
 
-	function authCtrl($scope, $window, $location, $mdDialog, $rootScope, pageService) {
+	function FrameModalInstanceCtrl($scope, $sce, $uibModalInstance, items) {				
+		$scope.detailFrame = $sce.trustAsResourceUrl(items[0]);		
+
+		$scope.ok = function() {
+			$uibModalInstance.close("");
+		};
+
+		$scope.cancel = function() {
+			$uibModalInstance.dismiss("cancel");
+		};
+
+	}
+
+	function authCtrl($scope, $window, $location, $mdDialog, $rootScope,
+			$uibModal, pageService) {
 
 		var original;
+		var tabWindowId = null;
 
 		$scope.user = {
 			email : '',
 			password : ''
 		};
-		
+
 		$scope.newUser = {
-				firstname : '',
-				lastname : '',
-				email : '',
-				password : '',
-				repassword: ''
-			}
+			firstname : '',
+			lastname : '',
+			email : '',
+			password : '',
+			repassword : ''
+		}
 
 		original = angular.copy($scope.user);
 
@@ -45,17 +65,18 @@
 			$location.url('/')
 		}
 
-		$scope.signup = function() {			
-			if($scope.canSubmitRegistration() == false){
+		$scope.signup = function() {
+			if ($scope.canSubmitRegistration() == false) {
 				$scope.showAlert('Empty', "Please fill all details");
 				return;
 			}
-			
-			if($scope.newUser.password != $scope.newUser.repassword ){
-				$scope.showAlert('Password', "Password and Retype password doesn't match.");
+
+			if ($scope.newUser.password != $scope.newUser.repassword) {
+				$scope.showAlert('Password',
+						"Password and Retype password doesn't match.");
 				return;
 			}
-			
+
 			pageService.createUser($scope.newUser).success(function(response) {
 				$rootScope.user = {};
 				$rootScope.user = response;
@@ -64,8 +85,8 @@
 			}).error(function(data, status) {
 				$scope.showAlert('Error', data);
 			});
-			
-			//$location.url('/')
+
+			// $location.url('/')
 		}
 
 		$scope.reset = function() {
@@ -80,7 +101,7 @@
 			return $scope.loginForm.$valid
 					&& !angular.equals($scope.user, original);
 		};
-		
+
 		$scope.canSubmitRegistration = function() {
 			return $scope.registerForm.$valid
 					&& !angular.equals($scope.newUser, original);
@@ -89,8 +110,8 @@
 		$scope.showAlert = function(title, msg) {
 			$mdDialog.show($mdDialog.alert().parent(
 					angular.element(document.querySelector('#popupContainer')))
-					.clickOutsideToClose(true).title(title).content(
-							msg).ariaLabel(msg).ok('Ok')
+					.clickOutsideToClose(true).title(title).content(msg)
+					.ariaLabel(msg).ok('Ok')
 			// .targetEvent(ev)
 			);
 		};
@@ -107,6 +128,55 @@
 				$scope.showAlert('Bad request !!', data);
 			});
 		}
+
+		/**
+		 * Wearable link
+		 */
+		$scope.onLinkWearable = function() {
+			pageService.getFitbitUrl().success(function(response) {
+				//$scope.open('lg', response);
+				tabWindowId = $window.open(response, '_blank');	
+				var timer = setInterval(checkChild, 500);
+				
+				function checkChild() {
+					if(tabWindowId == null){
+						clearInterval(timer);
+						return;
+					}
+						
+				    if (tabWindowId.closed) {
+				        alert("Child window closed");   
+				        clearInterval(timer);
+				        tabWindowId = null;
+				    }
+				};
+				
+			}).error(function(data, status) {
+				$scope.showAlert('Bad request !!', data);
+			});
+		}	
+		
+		
+		/**
+		 * Modal large window.
+		 */
+		$scope.open = function(size, url) {
+			var modalInstance = $uibModal.open({
+				animation : true,
+				templateUrl : 'modalWindow.html',
+				controller : 'FrameModalInstanceCtrl',
+				size : size,
+				resolve : {
+					items : function() {
+						return [url];
+					}
+				}
+			});
+
+			modalInstance.result.then(function(selectedItem) {				
+			}, function() {				
+			});
+		};
 	}
 
 })();

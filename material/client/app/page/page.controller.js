@@ -1,16 +1,14 @@
 (function() {
 	'use strict';
 
-	angular
-			.module('app.page')
-			.controller('invoiceCtrl', [ '$scope', '$window', invoiceCtrl ])
-			.controller(
-					'FrameModalInstanceCtrl',
-					[ '$scope', '$sce', '$uibModalInstance', 'items', FrameModalInstanceCtrl ])
-			.controller(
-					'authCtrl',
-					[ '$scope', '$window', '$location', '$mdDialog',
-							'$rootScope', '$uibModal', 'pageService', authCtrl ]);
+	angular.module('app.page').controller('invoiceCtrl',
+			[ '$scope', '$window', invoiceCtrl ]).controller(
+			'FrameModalInstanceCtrl',
+			[ '$scope', '$sce', '$uibModalInstance', 'items',
+					FrameModalInstanceCtrl ]).controller(
+			'authCtrl',
+			[ '$scope', '$window', '$location', '$mdDialog', '$rootScope',
+					'$uibModal', 'pageService', authCtrl ]);
 
 	function invoiceCtrl($scope, $window) {
 		var printContents, originalContents, popupWin;
@@ -27,8 +25,8 @@
 		}
 	}
 
-	function FrameModalInstanceCtrl($scope, $sce, $uibModalInstance, items) {				
-		$scope.detailFrame = $sce.trustAsResourceUrl(items[0]);		
+	function FrameModalInstanceCtrl($scope, $sce, $uibModalInstance, items) {
+		$scope.detailFrame = $sce.trustAsResourceUrl(items[0]);
 
 		$scope.ok = function() {
 			$uibModalInstance.close("");
@@ -56,7 +54,9 @@
 			lastname : '',
 			email : '',
 			password : '',
-			repassword : ''
+			repassword : '',
+			userType : '',
+			userId : ''
 		}
 
 		original = angular.copy($scope.user);
@@ -130,33 +130,63 @@
 		}
 
 		/**
+		 * read values values from cookies.
+		 */
+		$window.callback = function(data) {
+			$scope.newUser.firstname = $scope.readCookie(data, "firstname");
+			$scope.newUser.lastname = $scope.readCookie(data, "lastname");
+			$scope.newUser.userType = $scope.readCookie(data, "userType");
+			$scope.newUser.userId = $scope.readCookie(data, "userId");
+			console.log($scope.newUser);
+			$scope.$apply();
+		}
+
+		$scope.readCookie = function(cookie, name) {
+			var nameEQ = name + "=";
+			var ca = cookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ')
+					c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) == 0)
+					return c.substring(nameEQ.length, c.length);
+			}
+			return null;
+		}
+
+		/**
 		 * Wearable link
 		 */
 		$scope.onLinkWearable = function() {
-			pageService.getFitbitUrl().success(function(response) {
-				//$scope.open('lg', response);
-				tabWindowId = $window.open(response, '_blank');	
-				var timer = setInterval(checkChild, 500);
-				
-				function checkChild() {
-					if(tabWindowId == null){
-						clearInterval(timer);
-						return;
-					}
-						
-				    if (tabWindowId.closed) {
-				        alert("Child window closed");   
-				        clearInterval(timer);
-				        tabWindowId = null;
-				    }
-				};
-				
-			}).error(function(data, status) {
-				$scope.showAlert('Bad request !!', data);
-			});
-		}	
-		
-		
+			pageService
+					.getFitbitUrl()
+					.success(
+							function(response) {
+								// $scope.open('lg', response);
+								tabWindowId = $window.open(response, '_blank');
+								var timer = setInterval(checkChild, 500);
+
+								function checkChild() {
+									if (tabWindowId == null) {
+										clearInterval(timer);
+										return;
+									}
+
+									if (tabWindowId.closed) {
+										clearInterval(timer);
+										tabWindowId = null;
+										$scope
+												.showAlert('',
+														"Thanks for signing up. Please complete your registration process..");
+									}
+								}
+								;
+
+							}).error(function(data, status) {
+						$scope.showAlert('Bad request !!', data);
+					});
+		}
+
 		/**
 		 * Modal large window.
 		 */
@@ -168,13 +198,13 @@
 				size : size,
 				resolve : {
 					items : function() {
-						return [url];
+						return [ url ];
 					}
 				}
 			});
 
-			modalInstance.result.then(function(selectedItem) {				
-			}, function() {				
+			modalInstance.result.then(function(selectedItem) {
+			}, function() {
 			});
 		};
 	}

@@ -17,7 +17,7 @@
 				headers : appConfig.server.jsonHeaders
 			});
 		}
-		
+
 		/**
 		 * User create endpoint.
 		 */
@@ -29,16 +29,17 @@
 				headers : appConfig.server.jsonHeaders
 			});
 		}
-		
+
 		/**
 		 * Get fitbit url to open in Iframe.
 		 */
 		this.getFitbitUrl = function() {
 			return $http({
 				url : appConfig.server.fitbitAuthUrl,
-				method : "GET",				
+				method : "GET",
 				headers : appConfig.server.jsonHeaders
 			});
 		}
+
 	}
 })();

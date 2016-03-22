@@ -44,6 +44,11 @@
                 url: '/page/signin',
                 templateUrl: 'app/page/signin.html'
             });
+            
+            $stateProvider.state('callback', {
+                url: '/page/callback',
+                templateUrl: 'app/page/callback.html'
+            });
 
         }]
     );

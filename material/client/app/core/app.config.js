@@ -7,12 +7,14 @@
 
     function appConfig() {
     	
-    	//var endpointUrl = "http://localhost:9000";
-    	var endpointUrl = "http://vps250330.ovh.net"
-    	// Config for server.
+    	var endpointUrl = "http://localhost:9000";
+    	//var endpointUrl = "http://vps250330.ovh.net"
+    	
+    	// Config for server and endpoints
     	var server = {     		
     		loginUrl: endpointUrl + "/user/login",
     		registerUrl: endpointUrl + "/user/create",
+    		lintToWearableUrl: endpointUrl + "/user/linktowearable",
     		fitbitAuthUrl: endpointUrl + "/oauth/url/fitbit",    		
     		
     		jsonHeaders : {

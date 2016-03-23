@@ -42,7 +42,7 @@
 			$uibModal, pageService) {
 
 		var original;
-		var tabWindowId = null;
+		//var tabWindowId = null;
 
 		$scope.user = {
 			email : '',
@@ -137,8 +137,11 @@
 			$scope.newUser.lastname = $scope.readCookie(data, "lastname");
 			$scope.newUser.userType = $scope.readCookie(data, "userType");
 			$scope.newUser.userId = $scope.readCookie(data, "userId");
-			console.log($scope.newUser);
+
 			$scope.$apply();
+			$scope
+					.showAlert('',
+							"Thanks for signing up. Please complete your registration process..");
 		}
 
 		$scope.readCookie = function(cookie, name) {
@@ -158,33 +161,27 @@
 		 * Wearable link
 		 */
 		$scope.onLinkWearable = function() {
-			pageService
-					.getFitbitUrl()
-					.success(
-							function(response) {
-								// $scope.open('lg', response);
-								tabWindowId = $window.open(response, '_blank');
-								var timer = setInterval(checkChild, 500);
+			pageService.getFitbitUrl().success(function(response) {
+				// $scope.open('lg', response);
+				//tabWindowId = 
+					$window.open(response, '_blank');
+				//var timer = setInterval(checkChild, 500);
 
-								function checkChild() {
-									if (tabWindowId == null) {
-										clearInterval(timer);
-										return;
-									}
+				/*function checkChild() {
+					if (tabWindowId == null) {
+						clearInterval(timer);
+						return;
+					}
 
-									if (tabWindowId.closed) {
-										clearInterval(timer);
-										tabWindowId = null;
-										$scope
-												.showAlert('',
-														"Thanks for signing up. Please complete your registration process..");
-									}
-								}
-								;
+					if (tabWindowId.closed) {
+						clearInterval(timer);
+						tabWindowId = null;
+					}
+				};*/
 
-							}).error(function(data, status) {
-						$scope.showAlert('Bad request !!', data);
-					});
+			}).error(function(data, status) {
+				$scope.showAlert('Bad request !!', data);
+			});
 		}
 
 		/**

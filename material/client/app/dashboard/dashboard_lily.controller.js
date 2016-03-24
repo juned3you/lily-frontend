@@ -35,25 +35,25 @@
 		}
 		
 		if($window.location.hash == '#/dashboard'){
-			//$scope.isUserLoggedIn();
+			$scope.isUserLoggedIn();
 		}
 		
 
 		/**
 		 * read values values from cookies.
 		 */
-		$window.callback = function(data) {
+		/*$window.callback = function(data) {
 			$rootScope.user.userType = $scope.readCookie(data, "userType");
 			$rootScope.user.userId = $scope.readCookie(data, "userId");
 			$scope.callLinkToWearable();
-		}
+		}*/
 
 		$scope.logout = function() {
 			$rootScope.user = null;
 			$location.url('/')
 		}
 
-		$scope.readCookie = function(cookie, name) {
+		/*$scope.readCookie = function(cookie, name) {
 			var nameEQ = name + "=";
 			var ca = cookie.split(';');
 			for (var i = 0; i < ca.length; i++) {
@@ -64,33 +64,19 @@
 					return c.substring(nameEQ.length, c.length);
 			}
 			return null;
-		}
+		}*/
 
 		/**
 		 * Wearable link
 		 */
-		$scope.onLinkWearable = function() {
+		/*$scope.onLinkWearable = function() {
 			pageService.getFitbitUrl().success(function(response) {
-				//tabWindowId = 
-					$window.open(response, '_blank');
-				/*var timer = setInterval(checkChild, 500);
-
-				function checkChild() {
-					if (tabWindowId == null) {
-						clearInterval(timer);
-						return;
-					}
-
-					if (tabWindowId.closed) {
-						clearInterval(timer);
-						tabWindowId = null;
-					}
-				};*/
+				$window.open(response, '_blank');				
 
 			}).error(function(data, status) {
 				$scope.showAlert('Bad request !!', data);
 			});
-		}
+		}*/
 
 		/**
 		 * Call server to link wearable.

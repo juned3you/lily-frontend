@@ -76,6 +76,13 @@
 						"Password and Retype password doesn't match.");
 				return;
 			}
+			
+			if ($scope.newUser.userId == undefined || $scope.newUser.userId == null 
+					|| $scope.newUser.userId == ''){
+				$scope.showAlert('Link to wearable',
+				"Please link to your wearable");
+				return;
+			}
 
 			pageService.createUser($scope.newUser).success(function(response) {
 				$rootScope.user = {};

@@ -1,6 +1,6 @@
 <div class="page-signup" ng-controller="authCtrl">
 
-	<div class="wrapper">
+	<div >
 		<div class="main-body">
 			<div class="body-inner">
 
@@ -91,6 +91,14 @@
 										</md-input-container>
 									</div>
 								</div>
+
+								<div class="form-group">
+									<div class="ui-input-group">
+										<a href="javascript:;" ng-click="onLinkWearable()">LINK
+											YOUR WEARABLE</a>
+									</div>
+								</div>
+
 								<div class="divider"></div>
 								<div class="form-group">
 									<p class="text-small">
@@ -102,8 +110,7 @@
 						</form>
 					</div>
 					<div class="card-action no-border text-right">
-						<a href="javascript:;" ng-click="onLinkWearable()">Link your
-							wearable</a> <a href="#/page/signin">Login</a> <a href="javascript:;"
+						<a href="#/page/signin">Login</a> <a href="javascript:;"
 							ng-click="signup()" class="color-primary"
 							data-ng-disabled="!canSubmitRegistration()">Sign Up</a>
 					</div>

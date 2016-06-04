@@ -308,12 +308,12 @@
             </li>
         </ul-->
 
-		<ul class="nav-right pull-right list-unstyled" data-ng-controller="DashboardLilyCtrl">
+		<ul class="nav-right pull-right list-unstyled" data-ng-controller="DashboardLilyCtrl" style="margin-top: 15px">
 
 			<li class="dropdown langs text-normal" 
 				uib-dropdown ><md-button
-					class="dropdown-toggle" uib-dropdown-toggle aria-label="home">
-				home </md-button></li>
+					class="dropdown-toggle" uib-dropdown-toggle aria-label="user">
+					<img src="images/g1.jpg" class="img-circle img30_30"> {{user.fullName}} </md-button></li>
 
 			<li class="dropdown text-normal nav-profile" uib-dropdown
 				is-open="status.isopenProfile"><md-button

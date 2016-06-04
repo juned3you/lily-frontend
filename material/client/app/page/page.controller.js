@@ -127,8 +127,7 @@
 		 * Login
 		 */
 		$scope.checkLogin = function() {
-			pageService.login($scope.user).success(function(response) {
-				$rootScope.user = {};
+			pageService.login($scope.user).success(function(response) {				
 				$rootScope.user = response;
 				$location.url('/dashboard')
 			}).error(function(data, status) {

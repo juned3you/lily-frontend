@@ -34,9 +34,9 @@
 			}
 		}
 		
-		if($window.location.hash == '#/dashboard'){
+		/*if($window.location.hash == '#/dashboard'){
 			$scope.isUserLoggedIn();
-		}
+		}*/
 		
 
 		/**

@@ -402,9 +402,9 @@
 					position : 'center',
 					formatter : '{b}',
 					textStyle : {
-						color : '#999',
+						color : '#1A1A1A',
 						baseline : 'top',
-						fontSize : 12
+						fontSize : 14
 					}
 				},
 				labelLine : {
@@ -421,7 +421,7 @@
 					textStyle : {
 						color : $scope.color.text,
 						baseline : 'bottom',
-						fontSize : 24
+						fontSize : 36
 					}
 				}
 			},
@@ -438,7 +438,7 @@
 				}
 			}
 		};
-		var radius = [ 55, 60 ];
+		var radius = [ 90, 98 ];
 		$scope.pie = {};
 		$scope.pie.options1 = {
 			series : [ {

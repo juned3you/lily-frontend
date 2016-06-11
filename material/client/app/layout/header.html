@@ -313,8 +313,13 @@
 			<li class="dropdown langs text-normal" 
 				uib-dropdown ><md-button
 					class="dropdown-toggle" uib-dropdown-toggle aria-label="user">
-					<img src="images/g1.jpg" class="img-circle img30_30"> {{user.fullName}} </md-button></li>
+					{{user.fullName}} </md-button></li>
 
+			<li class="dropdown text-normal nav-profile" uib-dropdown
+				is-open="status.isopenProfile"><md-button
+					class="dropdown-toggle" uib-dropdown-toggle aria-label="home">
+				home </md-button>
+				
 			<li class="dropdown text-normal nav-profile" uib-dropdown
 				is-open="status.isopenProfile"><md-button
 					class="dropdown-toggle" uib-dropdown-toggle aria-label="profile">

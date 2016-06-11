@@ -56,7 +56,9 @@
 			password : '',
 			repassword : '',
 			userType : '',
-			userId : ''
+			userId : '',
+			company: '',
+			department: ''
 		}
 
 		original = angular.copy($scope.user);

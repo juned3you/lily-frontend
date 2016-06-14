@@ -49,7 +49,12 @@
                 url: '/page/callback',
                 templateUrl: 'app/page/callback.html'
             });
-
+            
+            $stateProvider.state('settings', {
+                url: '/page/settings',
+                templateUrl: 'app/page/settings.html'
+            });
+            
         }]
     );
 

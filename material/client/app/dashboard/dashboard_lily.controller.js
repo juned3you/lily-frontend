@@ -15,6 +15,8 @@
 
 		// Traffic chart
 
+		$scope.newUser = $rootScope.user;
+		
 		$scope.showAlert = function(title, msg) {
 			$mdDialog.show($mdDialog.alert().parent(
 					angular.element(document.querySelector('#popupContainer')))
@@ -52,6 +54,21 @@
 			$rootScope.user = null;
 			$location.url('/')
 		}
+		
+		$scope.onHome = function() {
+			$location.url('/dashboard')
+		}
+		
+		$scope.onSettings = function() {
+			//$scope.newUser = $rootScope.user;
+			console.log($scope.newUser);
+			$location.url('/page/settings');
+			//$scope.$apply();
+		}
+		
+		$scope.canSubmitSettings = function() {
+			return $scope.settingsForm.$valid;
+		};
 
 		/*$scope.readCookie = function(cookie, name) {
 			var nameEQ = name + "=";

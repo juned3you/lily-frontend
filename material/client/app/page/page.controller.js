@@ -65,7 +65,7 @@
 
 		$scope.login = function() {
 			$location.url('/')
-		}
+		}		
 
 		$scope.signup = function() {
 			if ($scope.canSubmitRegistration() == false) {

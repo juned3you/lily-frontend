@@ -40,7 +40,7 @@
 									</div>
 
 									<div layout layout-sm="column">
-										<md-input-container flex> <input
+										<md-input-container flex> <input disabled
 											type="text" name="email" required class="form-control"
 											name="email" required ng-model="newUser.email"
 											ng-pattern="/^.+@.+\..+$/" aria-label="email"
@@ -57,8 +57,8 @@
 
 									<div layout layout-sm="column">
 										<md-input-container flex> <input
-											name="password" type="password" required class="form-control"
-											required ng-model="newUser.password" aria-label="password"
+											name="password" type="password" class="form-control"
+											ng-model="newUser.password" aria-label="password"
 											data-ng-maxlength=50> <span class="input-bar"></span>
 										<label>Password</label>
 										<div ng-messages="registerForm.password.$error" multiple
@@ -68,8 +68,8 @@
 										</div>
 										</md-input-container>
 										<md-input-container flex> <input
-											name="password" type="password" required class="form-control"
-											required ng-model="newUser.repassword"
+											name="password" type="password" class="form-control"
+											ng-model="newUser.repassword"
 											aria-label="repassword" data-ng-maxlength=50> <span
 											class="input-bar"></span> <label>Retype Password</label>
 										<div ng-messages="registerForm.repassword.$error" multiple
@@ -110,7 +110,7 @@
 										<md-button ng-click="onHome()"
 											class="md-raised btn-w-md md-primary">Cancel</md-button>
 
-										<md-button type="submit" ng-click="canSubmitSettings()"
+										<md-button type="submit" ng-click="onSaveSettings()"
 											class="md-raised btn-w-md md-primary">Save</md-button>
 									</div>
 								</form>

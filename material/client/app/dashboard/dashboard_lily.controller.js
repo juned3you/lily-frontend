@@ -8,7 +8,7 @@
 
 	function DashboardLilyCtrl($scope, $rootScope, $window, $location,
 			$mdDialog, dashboardService, pageService) {
-		//var tabWindowId = null;
+		// var tabWindowId = null;
 		// success: #8BC34A 139,195,74
 		// info: #00BCD4 0,188,212
 		// gray: #EDF0F1 237,240,241
@@ -16,7 +16,7 @@
 		// Traffic chart
 
 		$scope.newUser = $rootScope.user;
-		
+
 		$scope.showAlert = function(title, msg) {
 			$mdDialog.show($mdDialog.alert().parent(
 					angular.element(document.querySelector('#popupContainer')))
@@ -35,65 +35,79 @@
 				return;
 			}
 		}
-		
-		/*if($window.location.hash == '#/dashboard'){
-			$scope.isUserLoggedIn();
-		}*/
-		
+
+		/*
+		 * if($window.location.hash == '#/dashboard'){ $scope.isUserLoggedIn(); }
+		 */
 
 		/**
 		 * read values values from cookies.
 		 */
-		/*$window.callback = function(data) {
-			$rootScope.user.userType = $scope.readCookie(data, "userType");
-			$rootScope.user.userId = $scope.readCookie(data, "userId");
-			$scope.callLinkToWearable();
-		}*/
+		/*
+		 * $window.callback = function(data) { $rootScope.user.userType =
+		 * $scope.readCookie(data, "userType"); $rootScope.user.userId =
+		 * $scope.readCookie(data, "userId"); $scope.callLinkToWearable(); }
+		 */
 
 		$scope.logout = function() {
 			$rootScope.user = null;
 			$location.url('/')
 		}
-		
+
 		$scope.onHome = function() {
 			$location.url('/dashboard')
 		}
-		
+
 		$scope.onSettings = function() {
-			//$scope.newUser = $rootScope.user;
+			// $scope.newUser = $rootScope.user;
 			console.log($scope.newUser);
 			$location.url('/page/settings');
-			//$scope.$apply();
+			// $scope.$apply();
 		}
-		
+
+		$scope.onSaveSettings = function() {
+			if (!$scope.canSubmitSettings())
+				return;
+
+			if ($scope.newUser.password != $scope.newUser.repassword) {
+				$scope.showAlert('Password',
+						"Password and Retype password doesn't match.");
+				return;
+			}
+
+			dashboardService.updateUser($scope.newUser).success(function(response) {
+				$rootScope.user = {};
+				$rootScope.user = response;
+				$scope.showAlert('Info', "Settings saved successfully.");
+			}).error(function(data, status) {
+				$scope.showAlert('Error', data);
+			});
+
+		}
+
 		$scope.canSubmitSettings = function() {
 			return $scope.settingsForm.$valid;
 		};
 
-		/*$scope.readCookie = function(cookie, name) {
-			var nameEQ = name + "=";
-			var ca = cookie.split(';');
-			for (var i = 0; i < ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0) == ' ')
-					c = c.substring(1, c.length);
-				if (c.indexOf(nameEQ) == 0)
-					return c.substring(nameEQ.length, c.length);
-			}
-			return null;
-		}*/
+		/*
+		 * $scope.readCookie = function(cookie, name) { var nameEQ = name + "=";
+		 * var ca = cookie.split(';'); for (var i = 0; i < ca.length; i++) { var
+		 * c = ca[i]; while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+		 * if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,
+		 * c.length); } return null; }
+		 */
 
 		/**
 		 * Wearable link
 		 */
-		/*$scope.onLinkWearable = function() {
-			pageService.getFitbitUrl().success(function(response) {
-				$window.open(response, '_blank');				
-
-			}).error(function(data, status) {
-				$scope.showAlert('Bad request !!', data);
-			});
-		}*/
+		/*
+		 * $scope.onLinkWearable = function() {
+		 * pageService.getFitbitUrl().success(function(response) {
+		 * $window.open(response, '_blank');
+		 * 
+		 * }).error(function(data, status) { $scope.showAlert('Bad request !!',
+		 * data); }); }
+		 */
 
 		/**
 		 * Call server to link wearable.

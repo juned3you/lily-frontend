@@ -21,5 +21,17 @@
 				headers : appConfig.server.jsonHeaders
 			});
 		}
+		
+		/**
+		 * User update endpoint.
+		 */
+		this.updateUser = function(user) {
+			return $http({
+				url : appConfig.server.updateUrl,
+				method : "POST",
+				data : user,
+				headers : appConfig.server.jsonHeaders
+			});
+		}
 	}
 })();

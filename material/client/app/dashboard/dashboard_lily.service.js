@@ -33,5 +33,17 @@
 				headers : appConfig.server.jsonHeaders
 			});
 		}
+		
+		/**
+		 * Get Monthly completion points
+		 */
+		this.getMonthlyCompletion = function(user) {
+			var url = appConfig.server.monthlyCompPoints.replace("%s", user.userId);
+			return $http({
+				url : url,
+				method : "GET",				
+				headers : appConfig.server.jsonHeaders
+			});
+		}
 	}
 })();

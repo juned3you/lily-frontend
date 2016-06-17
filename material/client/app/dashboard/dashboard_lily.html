@@ -21,14 +21,14 @@
 		<div class="col-md-3 box-stats text-center" style="height: 230px;">
 			<div class="box-num" style="vertical-align: middle; height: 100%">
 				<div style="padding-top: 10%; height: 100%">
-					270<span class="box-desc" style="color: #000000">pts</span>
+					{{monthlyCompletionResponse.monthlyGoalCompletionPoints}}<span class="box-desc" style="color: #000000">pts</span>
 					<div class="box-desc" style="color: #000000; margin-top: -20px">this month</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="col-md-3 text-center">
-			<div data-echarts data-options="pie.options1" style="height: 230px;"></div>
+			<div id="mnthlyComplBox" data-echarts data-options="pie.options1" style="height: 230px;"></div>
 		</div>
 
 		<div class="col-md-3 text-right">

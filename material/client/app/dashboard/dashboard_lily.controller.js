@@ -8,14 +8,13 @@
 
 	function DashboardLilyCtrl($scope, $rootScope, $window, $location,
 			$mdDialog, dashboardService, pageService) {
-		// var tabWindowId = null;
-		// success: #8BC34A 139,195,74
-		// info: #00BCD4 0,188,212
-		// gray: #EDF0F1 237,240,241
-
-		// Traffic chart
 
 		$scope.newUser = $rootScope.user;
+		$scope.monthlyCompletionResponse = {
+			monthlyGoalCompletionPoints : 0,
+			monthlyGrowthPercentage : 0,
+			monthlyGrowth : 0
+		};
 
 		$scope.showAlert = function(title, msg) {
 			$mdDialog.show($mdDialog.alert().parent(
@@ -75,11 +74,14 @@
 				return;
 			}
 
-			dashboardService.updateUser($scope.newUser).success(function(response) {
-				$rootScope.user = {};
-				$rootScope.user = response;
-				$scope.showAlert('Info', "Settings saved successfully.");
-			}).error(function(data, status) {
+			dashboardService.updateUser($scope.newUser).success(
+					function(response) {
+						$rootScope.user = {};
+						$rootScope.user = response;
+						$scope
+								.showAlert('Info',
+										"Settings saved successfully.");
+					}).error(function(data, status) {
 				$scope.showAlert('Error', data);
 			});
 
@@ -471,23 +473,7 @@
 		};
 		var radius = [ 90, 98 ];
 		$scope.pie = {};
-		$scope.pie.options1 = {
-			series : [ {
-				type : 'pie',
-				center : [ '50%', '50%' ],
-				radius : radius,
-				itemStyle : labelFromatter,
-				data : [ {
-					name : 'Monthly Goal Completion',
-					value : 75,
-					itemStyle : labelTop
-				}, {
-					name : 'other',
-					value : 25,
-					itemStyle : labelBottom
-				} ]
-			} ]
-		};
+		$scope.pie.options1 = {};
 
 		$scope.pie.options2 = {
 			series : [ {
@@ -559,6 +545,51 @@
 				}
 			} ]
 		};
+
+		// Get Monthly Completion response
+		if ($rootScope.user != null && $rootScope.user != undefined) {
+			dashboardService
+					.getMonthlyCompletion($rootScope.user)
+					.success(
+							function(response) {
+								$scope.monthlyCompletionResponse = {};
+								$scope.monthlyCompletionResponse = response;								
+
+								$scope.pie.options1.series = [];
+
+								var mtly = {
+									name : 'Monthly Goal Completion',
+									value : $scope.monthlyCompletionResponse.monthlyGrowthPercentage,
+									itemStyle : labelTop
+								}
+
+								var other = {
+									name : 'other',
+									value : (100 - $scope.monthlyCompletionResponse.monthlyGrowthPercentage),
+									itemStyle : labelBottom
+								};
+
+								var data = [];
+								data.push(mtly);
+								data.push(other);
+
+								var seriesOne = {
+									type : 'pie',
+									center : [ '50%', '50%' ],
+									radius : radius,
+									itemStyle : labelFromatter,
+									data : data
+								};
+								$scope.pie.options1.series.push(seriesOne);
+								
+								/*$scope.$apply(function () {
+						            $scope.message = "Timeout called!";
+						        });*/
+								
+							}).error(function(data, status) {
+						$scope.showAlert('Error', data);
+					});
+		}
 	}
 
 })();

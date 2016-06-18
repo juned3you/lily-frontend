@@ -4,10 +4,11 @@
 	angular.module('app').controller(
 			'DashboardLilyCtrl',
 			[ '$scope', '$rootScope', '$window', '$location', '$mdDialog',
-					'dashboardService', 'pageService', DashboardLilyCtrl ])
+					'$filter', 'dashboardService', 'pageService',
+					DashboardLilyCtrl ])
 
 	function DashboardLilyCtrl($scope, $rootScope, $window, $location,
-			$mdDialog, dashboardService, pageService) {
+			$mdDialog, $filter, dashboardService, pageService) {
 
 		$scope.newUser = $rootScope.user;
 		$scope.monthlyCompletionResponse = {
@@ -493,6 +494,53 @@
 			} ]
 		};
 
+		// Get Monthly Completion response
+		if ($rootScope.user != null && $rootScope.user != undefined) {
+			dashboardService
+					.getMonthlyCompletion($rootScope.user)
+					.success(
+							function(response) {
+								$scope.monthlyCompletionResponse = {};
+								$scope.monthlyCompletionResponse = response;
+
+								$scope.pie.options1 = {};
+								$scope.pie.options1.series = [];
+
+								var goalPer = $filter('number')
+										(
+												$scope.monthlyCompletionResponse.monthlyGrowthPercentage,
+												2);
+								
+								var mtly = {
+									name : 'Monthly Goal Completion',
+									value : goalPer,
+									itemStyle : labelTop
+								}
+
+								var other = {
+									name : 'other',
+									value : (100 - goalPer),
+									itemStyle : labelBottom
+								};
+
+								var data = [];
+								data.push(mtly);
+								data.push(other);
+
+								var seriesOne = {
+									type : 'pie',
+									center : [ '50%', '50%' ],
+									radius : radius,
+									itemStyle : labelFromatter,
+									data : data
+								};
+								$scope.pie.options1.series.push(seriesOne);
+
+							}).error(function(data, status) {
+						$scope.showAlert('Error', data);
+					});
+		}
+
 		$scope.line2 = {};
 		$scope.line2.options = {
 			tooltip : {
@@ -545,51 +593,6 @@
 				}
 			} ]
 		};
-
-		// Get Monthly Completion response
-		if ($rootScope.user != null && $rootScope.user != undefined) {
-			dashboardService
-					.getMonthlyCompletion($rootScope.user)
-					.success(
-							function(response) {
-								$scope.monthlyCompletionResponse = {};
-								$scope.monthlyCompletionResponse = response;								
-
-								$scope.pie.options1.series = [];
-
-								var mtly = {
-									name : 'Monthly Goal Completion',
-									value : $scope.monthlyCompletionResponse.monthlyGrowthPercentage,
-									itemStyle : labelTop
-								}
-
-								var other = {
-									name : 'other',
-									value : (100 - $scope.monthlyCompletionResponse.monthlyGrowthPercentage),
-									itemStyle : labelBottom
-								};
-
-								var data = [];
-								data.push(mtly);
-								data.push(other);
-
-								var seriesOne = {
-									type : 'pie',
-									center : [ '50%', '50%' ],
-									radius : radius,
-									itemStyle : labelFromatter,
-									data : data
-								};
-								$scope.pie.options1.series.push(seriesOne);
-								
-								/*$scope.$apply(function () {
-						            $scope.message = "Timeout called!";
-						        });*/
-								
-							}).error(function(data, status) {
-						$scope.showAlert('Error', data);
-					});
-		}
 	}
 
 })();

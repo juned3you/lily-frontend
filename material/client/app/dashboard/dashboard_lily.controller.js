@@ -17,6 +17,11 @@
 			monthlyGrowth : 0
 		};
 
+		$scope.dashboardData = {
+			monthlyGoalCompletion : {},
+			friendsData : {}
+		};
+
 		$scope.showAlert = function(title, msg) {
 			$mdDialog.show($mdDialog.alert().parent(
 					angular.element(document.querySelector('#popupContainer')))
@@ -497,11 +502,13 @@
 		// Get Monthly Completion response
 		if ($rootScope.user != null && $rootScope.user != undefined) {
 			dashboardService
-					.getMonthlyCompletion($rootScope.user)
+					.getDashboardData($rootScope.user)
 					.success(
 							function(response) {
+								$scope.dashboardData = {};
+								$scope.dashboardData = response;
 								$scope.monthlyCompletionResponse = {};
-								$scope.monthlyCompletionResponse = response;
+								$scope.monthlyCompletionResponse = response.monthlyGoalCompletion;
 
 								$scope.pie.options1 = {};
 								$scope.pie.options1.series = [];
@@ -510,7 +517,7 @@
 										(
 												$scope.monthlyCompletionResponse.monthlyGrowthPercentage,
 												2);
-								
+
 								var mtly = {
 									name : 'Monthly Goal Completion',
 									value : goalPer,

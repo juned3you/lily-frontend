@@ -21,8 +21,10 @@
 		<div class="col-md-3 box-stats text-center" style="height: 230px;">
 			<div class="box-num" style="vertical-align: middle; height: 100%">
 				<div style="padding-top: 10%; height: 100%">
-					{{monthlyCompletionResponse.monthlyGoalCompletionPoints}}<span class="box-desc" style="color: #000000">pts</span>
-					<div class="box-desc" style="color: #000000; margin-top: -20px">this month</div>
+					{{monthlyCompletionResponse.monthlyGoalCompletionPoints}}<span
+						class="box-desc" style="color: #000000">pts</span>
+					<div class="box-desc" style="color: #000000; margin-top: -20px">this
+						month</div>
 				</div>
 			</div>
 		</div>
@@ -51,32 +53,12 @@
 							<h4>My Friends &amp; Colleagues</h4>
 						</div>
 						<table class="table text-center">
-							<tbody>
-								<tr>
-									<td>usernameX</td>
-									<td>408pts</td>
-									<td><span class="color-success"><i
-											class="fa fa-level-up"></i></span> 43</td>
-								</tr>
-								<tr>
-									<td>usernameY</td>
-									<td>340pts</td>
-									<td><span class="color-success"><i
-											class="fa fa-level-up"></i></span> 10</td>
-								</tr>
-
-								<tr>
-									<td>me</td>
-									<td>220pts</td>
-									<td><span class="color-danger"><i
-											class="fa fa-level-down"></i></span> 5</td>
-								</tr>
-
-								<tr>
-									<td>usernameZ</td>
-									<td>270pts</td>
-									<td><span class="color-success"><i
-											class="fa fa-level-up"></i></span> 123</td>
+							<tbody>								
+								<tr data-ng-repeat="friend in dashboardData.friendsData">
+									<td>{{friend.userName}}</td>
+									<td>{{friend.monthlyGoalCompletionPoints}}pts</td>
+									<td><span class="{{friend.spanClass}}"><i
+											class="fa {{friend.liClass}}"></i></span> {{friend.raise}}</td>
 								</tr>
 							</tbody>
 						</table>

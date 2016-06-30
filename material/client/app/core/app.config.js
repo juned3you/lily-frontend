@@ -16,8 +16,8 @@
     		registerUrl: endpointUrl + "/user/create",
     		updateUrl: endpointUrl + "/user/update",
     		lintToWearableUrl: endpointUrl + "/user/linktowearable",
-    		fitbitAuthUrl: endpointUrl + "/oauth/url/fitbit",
-    		monthlyCompPoints: endpointUrl + "/fitbit/dashboard/%s/monthlygoalcompletion",
+    		fitbitAuthUrl: endpointUrl + "/oauth/url/fitbit",    		
+    		dashboardDataUrl: endpointUrl + "/fitbit/dashboard/%s/dashboard",
     		
     		jsonHeaders : {
     			'Content-Type' : 'application/json'			

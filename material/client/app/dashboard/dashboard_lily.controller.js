@@ -19,7 +19,8 @@
 
 		$scope.dashboardData = {
 			monthlyGoalCompletion : {},
-			friendsData : {}
+			friendsData : {},
+			weeklyGoalCompletionPercentage: 0.0
 		};
 
 		$scope.showAlert = function(title, msg) {
@@ -480,72 +481,99 @@
 		var radius = [ 90, 98 ];
 		$scope.pie = {};
 		$scope.pie.options1 = {};
+		$scope.pie.options2 = {};		
 
-		$scope.pie.options2 = {
-			series : [ {
+		// Get Monthly Completion response
+		if ($rootScope.user != null && $rootScope.user != undefined) {
+			dashboardService.getDashboardData($rootScope.user).success(
+					function(response) {
+						$scope.dashboardData = {};
+						$scope.dashboardData = response;
+						$scope.updateMonthlyCompletionChart();
+						$scope.updateWeeklyGrowthChart();
+					}).error(function(data, status) {
+				$scope.showAlert('Error', data);
+			});
+		}
+
+		/**
+		 * Update Monthly growth chart.
+		 */
+		$scope.updateMonthlyCompletionChart = function() {
+			$scope.monthlyCompletionResponse = {};
+			$scope.monthlyCompletionResponse = $scope.dashboardData.monthlyGoalCompletion;
+
+			$scope.pie.options1 = {};
+			$scope.pie.options1.series = [];
+
+			var goalPer = $filter('number')
+					($scope.monthlyCompletionResponse.monthlyGrowthPercentage,
+							2);
+
+			var mtly = {
+				name : 'Monthly Goal Completion',
+				value : goalPer,
+				itemStyle : labelTop
+			}
+
+			var other = {
+				name : 'other',
+				value : (100 - goalPer),
+				itemStyle : labelBottom
+			};
+
+			var data = [];
+			data.push(mtly);
+			data.push(other);
+
+			var seriesOne = {
 				type : 'pie',
 				center : [ '50%', '50%' ],
 				radius : radius,
 				itemStyle : labelFromatter,
-				data : [ {
-					name : 'Week/Week Growth',
-					value : 25,
-					itemStyle : labelTop
-				}, {
-					name : 'other',
-					value : 75,
-					itemStyle : labelBottom
-				} ]
-			} ]
-		};
+				data : data
+			};
+			$scope.pie.options1.series.push(seriesOne);
+		}
+		
+		/**
+		 * Update Week/Week growth chart.
+		 */
+		$scope.updateWeeklyGrowthChart = function() {
+			$scope.weeklyGoalCompletionPercentage = 0.0;
+			$scope.weeklyGoalCompletionPercentage = $scope.dashboardData.weeklyGoalCompletionPercentage;
 
-		// Get Monthly Completion response
-		if ($rootScope.user != null && $rootScope.user != undefined) {
-			dashboardService
-					.getDashboardData($rootScope.user)
-					.success(
-							function(response) {
-								$scope.dashboardData = {};
-								$scope.dashboardData = response;
-								$scope.monthlyCompletionResponse = {};
-								$scope.monthlyCompletionResponse = response.monthlyGoalCompletion;
+			$scope.pie.options2 = {};
+			$scope.pie.options2.series = [];		
+			
+			var goalPer = $filter('number')
+					($scope.weeklyGoalCompletionPercentage,
+							2);
 
-								$scope.pie.options1 = {};
-								$scope.pie.options1.series = [];
+			var mtly = {
+				name : 'Week/Week Growth',
+				value : goalPer,
+				itemStyle : labelTop
+			}
 
-								var goalPer = $filter('number')
-										(
-												$scope.monthlyCompletionResponse.monthlyGrowthPercentage,
-												2);
+			var other = {
+				name : 'other',
+				value : (100 - goalPer),
+				itemStyle : labelBottom
+			};
 
-								var mtly = {
-									name : 'Monthly Goal Completion',
-									value : goalPer,
-									itemStyle : labelTop
-								}
+			var data = [];
+			data.push(mtly);
+			data.push(other);
 
-								var other = {
-									name : 'other',
-									value : (100 - goalPer),
-									itemStyle : labelBottom
-								};
-
-								var data = [];
-								data.push(mtly);
-								data.push(other);
-
-								var seriesOne = {
-									type : 'pie',
-									center : [ '50%', '50%' ],
-									radius : radius,
-									itemStyle : labelFromatter,
-									data : data
-								};
-								$scope.pie.options1.series.push(seriesOne);
-
-							}).error(function(data, status) {
-						$scope.showAlert('Error', data);
-					});
+			var seriesOne = {
+				type : 'pie',
+				center : [ '50%', '50%' ],
+				radius : radius,
+				itemStyle : labelFromatter,
+				data : data
+			};
+			$scope.pie.options2.series.push(seriesOne);
 		}
 
 		$scope.line2 = {};

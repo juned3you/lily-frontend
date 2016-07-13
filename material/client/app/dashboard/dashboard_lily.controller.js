@@ -20,7 +20,7 @@
 		$scope.dashboardData = {
 			monthlyGoalCompletion : {},
 			friendsData : {},
-			weeklyGoalCompletionPercentage: 0.0
+			weeklyGoalCompletionPercentage : 0.0
 		};
 
 		$scope.showAlert = function(title, msg) {
@@ -481,7 +481,9 @@
 		var radius = [ 90, 98 ];
 		$scope.pie = {};
 		$scope.pie.options1 = {};
-		$scope.pie.options2 = {};		
+		$scope.pie.options2 = {};
+		$scope.line2 = {};
+		$scope.line2.options = {};
 
 		// Get Monthly Completion response
 		if ($rootScope.user != null && $rootScope.user != undefined) {
@@ -491,6 +493,7 @@
 						$scope.dashboardData = response;
 						$scope.updateMonthlyCompletionChart();
 						$scope.updateWeeklyGrowthChart();
+						$scope.updateLast30DaysChart();
 					}).error(function(data, status) {
 				$scope.showAlert('Error', data);
 			});
@@ -535,7 +538,7 @@
 			};
 			$scope.pie.options1.series.push(seriesOne);
 		}
-		
+
 		/**
 		 * Update Week/Week growth chart.
 		 */
@@ -544,11 +547,10 @@
 			$scope.weeklyGoalCompletionPercentage = $scope.dashboardData.weeklyGoalCompletionPercentage;
 
 			$scope.pie.options2 = {};
-			$scope.pie.options2.series = [];		
-			
-			var goalPer = $filter('number')
-					($scope.weeklyGoalCompletionPercentage,
-							2);
+			$scope.pie.options2.series = [];
+
+			var goalPer = $filter('number')(
+					$scope.weeklyGoalCompletionPercentage, 2);
 
 			var mtly = {
 				name : 'Week/Week Growth',
@@ -576,15 +578,17 @@
 			$scope.pie.options2.series.push(seriesOne);
 		}
 
-		$scope.line2 = {};
-		$scope.line2.options = {
-			tooltip : {
+		/**
+		 * Update last 30 days chart.
+		 */
+		$scope.updateLast30DaysChart = function() {
+			$scope.line2.options = {};
+			$scope.line2.options.tooltip = {
 				trigger : 'axis'
-			},
-			legend : {
-				data : [ 'Sleep', 'Sport' ]
-			},
-			toolbox : {
+			};
+			$scope.line2.options.legend = {};
+			$scope.line2.options.legend.data = [];
+			$scope.line2.options.toolbox = {
 				show : false,
 				feature : {
 					restore : {
@@ -596,38 +600,40 @@
 						title : "save as image"
 					}
 				}
-			},
-			calculable : true,
-			xAxis : [ {
+			};
+
+			$scope.line2.options.calculable = true;
+			$scope.line2.options.xAxis = [];
+			$scope.line2.options.series = [];
+
+			$scope.line2.options.yAxis = [ {
+				type : 'value'
+			} ];
+
+			var xAxisData = {
 				type : 'category',
 				boundaryGap : false,
-				data : [ 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.', 'Sun.' ]
-			} ],
-			yAxis : [ {
-				type : 'value'
-			} ],
-			series : [ {
-				name : 'Sleep',
-				type : 'line',
-				data : [ 5, 4, 5, 7, 5, 5, 4 ],
-				markPoint : {
-					data : [ {
-						type : 'max',
-						name : 'Max'
-					} ]
-				}
-			}, {
-				name : 'Sport',
-				type : 'line',
-				data : [ 2, 5, 7, 5, 3, 4, 8 ],
-				markPoint : {
-					data : [ {
-						type : 'max',
-						name : 'Max'
-					} ]
-				}
-			} ]
-		};
-	}
+				data : $scope.dashboardData.chartData['xAxisDataLabel']
+			};
 
+			$scope.line2.options.xAxis.push(xAxisData);
+
+			angular.forEach($scope.dashboardData.chartData['legends'],
+					function(value, key) {
+						$scope.line2.options.legend.data.push(value);
+					}, []);
+
+			angular.forEach($scope.dashboardData.chartData['seriesData'],
+					function(value, key) {
+						value.type = "line";
+						value.markPoint = {
+							data : [ {
+								type : 'max',
+								name : 'Max'
+							} ]
+						};						
+						$scope.line2.options.series.push(value);
+					}, []);
+		}
+	}
 })();

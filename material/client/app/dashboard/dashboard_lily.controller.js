@@ -478,12 +478,19 @@
 				}
 			}
 		};
+		
 		var radius = [ 90, 98 ];
 		$scope.pie = {};
 		$scope.pie.options1 = {};
 		$scope.pie.options2 = {};
 		$scope.line2 = {};
 		$scope.line2.options = {};
+		
+		$scope.progress = {};
+		$scope.progress.steps = {};
+		$scope.progress.sleep = {};
+		$scope.progress.activities = {};
+		$scope.progress.activeTime = {};
 
 		// Get Monthly Completion response
 		if ($rootScope.user != null && $rootScope.user != undefined) {
@@ -494,6 +501,7 @@
 						$scope.updateMonthlyCompletionChart();
 						$scope.updateWeeklyGrowthChart();
 						$scope.updateLast30DaysChart();
+						$scope.updateLast7DaysProgress();
 					}).error(function(data, status) {
 				$scope.showAlert('Error', data);
 			});
@@ -634,6 +642,37 @@
 						};						
 						$scope.line2.options.series.push(value);
 					}, []);
+		}
+		
+		/**
+		 * Update last 7 days chart.
+		 */
+		$scope.updateLast7DaysProgress = function() {
+			var progressData = $scope.dashboardData.progressBarData;
+			
+			$scope.progress.steps = {};
+			$scope.progress.steps.progressValue = progressData.steps.progressValue;
+			$scope.progress.steps.data = progressData.steps.data;
+			$scope.progress.steps.pts = progressData.steps.pts;
+			$scope.progress.steps.interval = progressData.steps.interval;
+			
+			$scope.progress.activities = {};
+			$scope.progress.activities.progressValue = progressData.activities.progressValue;
+			$scope.progress.activities.data = progressData.activities.data;
+			$scope.progress.activities.pts = progressData.activities.pts;
+			$scope.progress.activities.interval = progressData.activities.interval;
+			
+			$scope.progress.activeTime = {};
+			$scope.progress.activeTime.progressValue = progressData.activeTime.progressValue;
+			$scope.progress.activeTime.data = progressData.activeTime.data;
+			$scope.progress.activeTime.pts = progressData.activeTime.pts;
+			$scope.progress.activeTime.interval = progressData.activeTime.interval;			
+			
+			$scope.progress.sleep = {};
+			$scope.progress.sleep.progressValue = progressData.sleep.progressValue;
+			$scope.progress.sleep.data = progressData.sleep.data;
+			$scope.progress.sleep.pts = progressData.sleep.pts;
+			$scope.progress.sleep.interval = progressData.sleep.interval;					
 		}
 	}
 })();

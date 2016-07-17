@@ -455,8 +455,10 @@
 		var labelFromatter = {
 			normal : {
 				label : {
-					formatter : function(params) {
-						return 100 - params.value + '%'
+					formatter : function(params) {						
+						if(params.value == 100)
+							return '0%';						
+						return $filter('number')(100 - params.value, 2) + '%';
 					},
 					textStyle : {
 						color : $scope.color.text,
@@ -478,14 +480,14 @@
 				}
 			}
 		};
-		
+
 		var radius = [ 90, 98 ];
 		$scope.pie = {};
 		$scope.pie.options1 = {};
 		$scope.pie.options2 = {};
 		$scope.line2 = {};
 		$scope.line2.options = {};
-		
+
 		$scope.progress = {};
 		$scope.progress.steps = {};
 		$scope.progress.sleep = {};
@@ -520,7 +522,8 @@
 			var goalPer = $filter('number')
 					($scope.monthlyCompletionResponse.monthlyGrowthPercentage,
 							2);
-
+			
+			var otherPer = $filter('number')(100 - goalPer, 2);
 			var mtly = {
 				name : 'Monthly Goal Completion',
 				value : goalPer,
@@ -529,7 +532,7 @@
 
 			var other = {
 				name : 'other',
-				value : (100 - goalPer),
+				value : otherPer,
 				itemStyle : labelBottom
 			};
 
@@ -639,40 +642,40 @@
 								type : 'max',
 								name : 'Max'
 							} ]
-						};						
+						};
 						$scope.line2.options.series.push(value);
 					}, []);
 		}
-		
+
 		/**
 		 * Update last 7 days chart.
 		 */
 		$scope.updateLast7DaysProgress = function() {
 			var progressData = $scope.dashboardData.progressBarData;
-			
+
 			$scope.progress.steps = {};
 			$scope.progress.steps.progressValue = progressData.steps.progressValue;
 			$scope.progress.steps.data = progressData.steps.data;
 			$scope.progress.steps.pts = progressData.steps.pts;
 			$scope.progress.steps.interval = progressData.steps.interval;
-			
+
 			$scope.progress.activities = {};
 			$scope.progress.activities.progressValue = progressData.activities.progressValue;
 			$scope.progress.activities.data = progressData.activities.data;
 			$scope.progress.activities.pts = progressData.activities.pts;
 			$scope.progress.activities.interval = progressData.activities.interval;
-			
+
 			$scope.progress.activeTime = {};
 			$scope.progress.activeTime.progressValue = progressData.activeTime.progressValue;
 			$scope.progress.activeTime.data = progressData.activeTime.data;
 			$scope.progress.activeTime.pts = progressData.activeTime.pts;
-			$scope.progress.activeTime.interval = progressData.activeTime.interval;			
-			
+			$scope.progress.activeTime.interval = progressData.activeTime.interval;
+
 			$scope.progress.sleep = {};
 			$scope.progress.sleep.progressValue = progressData.sleep.progressValue;
 			$scope.progress.sleep.data = progressData.sleep.data;
 			$scope.progress.sleep.pts = progressData.sleep.pts;
-			$scope.progress.sleep.interval = progressData.sleep.interval;					
+			$scope.progress.sleep.interval = progressData.sleep.interval;
 		}
 	}
 })();

@@ -1,62 +1,67 @@
 <div class="page page-dashboard" data-ng-controller="DashboardLilyCtrl">
 
-	<div class="row">
+	<!-- div class="row">
 		<div class="col-md-12 text-right">
 			<div class="user-details">
 				<span> <img src="images/g1.jpg" class="img-circle img100_100">
 				</span>
 				<div style="float: right; margin-left: 15px" class="text-left">
-					<div data-translate="Username" class="h3"
+					<div data-translate="{{user.firstname}}" class="h3"
 						style="margin-bottom: 0px"></div>
 					<div data-translate="Company"></div>
 					<div data-translate="Department/Office"></div>
 				</div>
 			</div>
 		</div>
+	</div -->
+
+	<div class="row" style="vertical-align: middle;">
+		<div class="col-md-1"></div>
+
+		<div class="col-md-3 box-stats text-center" style="height: 230px;">
+			<div class="box-num" style="vertical-align: middle; height: 100%">
+				<div style="padding-top: 10%; height: 100%">
+					{{monthlyCompletionResponse.monthlyGoalCompletionPoints}}<span
+						class="box-desc" style="color: #000000">pts</span>
+					<div class="box-desc" style="color: #000000; margin-top: -20px">this
+						month</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-3 text-center">
+			<div data-echarts data-options="pie.options1" style="height: 230px;"></div>
+		</div>
+
+		<div class="col-md-3 text-right">
+			<div data-echarts data-options="pie.options2" style="height: 230px;"></div>
+		</div>
 	</div>
 
-	<div class="row" style="height: 20px"></div>
+
+	<div class="row" style="height: 10px"></div>
 
 	<div class="row">
 		<div class="col-md-1"></div>
-		
+
 		<div class="col-md-6">
 			<div class="row">
-				<div class="col-md-6">
-					<div class="panel panel-default">
-						<div class="panel-body padding-md">
-							<div class="row">
-								<div class="col-lg-12">
-									<div class="panel">
-										<div class="panel-body">
-											<div class="row">
-												<div data-echarts data-options="pie.options1"
-													style="height: 120px;"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+				<div class="col-md-12">
+					<div class="panel panel-default panel-minimal">
+						<div class="divider divider-md"></div>
+						<div class="panel-heading text-center">
+							<h4>My Friends &amp; Colleagues</h4>
 						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="panel panel-default">
-						<div class="panel-body padding-md">
-							<div class="row">
-								<div class="col-lg-12">
-									<div class="panel">
-										<div class="panel-body">
-											<div class="row">
-												<div data-echarts data-options="pie.options2"
-													style="height: 120px;"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<table class="table text-center">
+							<tbody>								
+								<tr data-ng-repeat="friend in dashboardData.friendsData">
+									<td>{{friend.userName}}</td>
+									<td>{{friend.monthlyGoalCompletionPoints}}pts</td>
+									<td><span class="{{friend.spanClass}}"><i
+											class="fa {{friend.liClass}}"></i></span> {{friend.raise}}</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -66,7 +71,7 @@
 					<div class="panel panel-default panel-minimal">
 						<div class="divider divider-md"></div>
 						<div class="panel-heading text-center">
-							<h4>Last 7 days</h4>
+							<h4>Last 30 days</h4>
 						</div>
 						<div class="panel-body">
 							<div data-echarts data-options="line2.options"
@@ -83,7 +88,7 @@
 			<section class="panel" style="height: 100%">
 				<div class="divider divider-md"></div>
 				<div class="panel-heading text-center">
-					<h4>Activities</h4>
+					<h4>Last 7 days</h4>
 				</div>
 				<div class="panel-body" style="height: 485px">
 
@@ -95,10 +100,10 @@
 							style="margin-left: 15px">
 							<div class="progressbar-container">
 								<h5>Steps</h5>
-								<uib-progressbar class="progressbar-xs" value="56.78"
+								<uib-progressbar class="progressbar-xs" value="progress.steps.progressValue"
 									type="success"></uib-progressbar>
-								<p class="desc">
-									<span class="color-success"> 5678 steps /10000 per day</span>
+								<p class="desc text-right">
+									<span class="color-success"> {{progress.steps.data}}{{progress.steps.interval}} - {{progress.steps.pts}}pts</span>
 								</p>
 							</div>
 						</div>
@@ -111,11 +116,27 @@
 						<div class="col-md-10  col-sm-9 col-xs-9"
 							style="margin-left: 15px">
 							<div class="progressbar-container">
-								<h5>Run</h5>
-								<uib-progressbar class="progressbar-xs" value="37.5"
+								<h5>Activities</h5>
+								<uib-progressbar class="progressbar-xs" value="progress.activities.progressValue"
 									type="warning"></uib-progressbar>
-								<p class="desc">
-									<span class="text-center color-warning"> 15min / 40min</span>
+								<p class="desc text-right">
+									<span class="text-center color-warning"> {{progress.activities.data}}{{progress.activities.interval}} - {{progress.activities.pts}}pts</span>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-1 col-sm-1 col-xs-1">
+							<div class="square"></div>
+						</div>
+						<div class="col-md-10  col-sm-9 col-xs-9"
+							style="margin-left: 15px">
+							<div class="progressbar-container">
+								<h5>Active time</h5>
+								<uib-progressbar class="progressbar-xs" value="progress.activeTime.progressValue" type="info"></uib-progressbar>
+								<p class="desc text-right">
+									<span class="text-center color-warning"> {{progress.activeTime.data}}{{progress.activeTime.interval}} - {{progress.activeTime.pts}}pts</span>
 								</p>
 							</div>
 						</div>
@@ -130,25 +151,9 @@
 							style="margin-left: 15px">
 							<div class="progressbar-container">
 								<h5>Sleep</h5>
-								<uib-progressbar class="progressbar-xs" value="87.5" type="info"></uib-progressbar>
-								<p class="desc">
-									<span class="text-center color-warning"> 7h / 8h</span>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-1 col-sm-1 col-xs-1">
-							<div class="square"></div>
-						</div>
-						<div class="col-md-10  col-sm-9 col-xs-9"
-							style="margin-left: 15px">
-							<div class="progressbar-container">
-								<h5>Sports HR</h5>
-								<uib-progressbar class="progressbar-xs" value="50" type="info"></uib-progressbar>
-								<p class="desc">
-									<span class="text-center color-warning"> 20min / 40min</span>
+								<uib-progressbar class="progressbar-xs" value="progress.sleep.progressValue" type="info"></uib-progressbar>
+								<p class="desc text-right">
+									<span class="text-center color-warning"> {{progress.sleep.data}}{{progress.sleep.interval}} - {{progress.sleep.pts}}pts</span>
 								</p>
 							</div>
 						</div>

@@ -1,0 +1,10 @@
+<div>
+	<script>		
+		window.opener.callback(window.document.cookie);		
+		var timer = setInterval(closeWindow, 2);
+		function closeWindow(){
+			clearInterval(timer);
+			window.close();
+		}
+	</script>	
+</div>

@@ -308,13 +308,32 @@
             </li>
         </ul-->
 
-		<ul class="nav-right pull-right list-unstyled">
+		<ul class="nav-right pull-right list-unstyled" data-ng-controller="DashboardLilyCtrl" style="margin-top: 15px">
 
-			<li><md-button href="#"> home </md-button></li>
+			<li class="dropdown langs text-normal" 
+				uib-dropdown ><md-button
+					class="dropdown-toggle" uib-dropdown-toggle aria-label="user">
+					{{user.fullName}} </md-button></li>
 
-			<li><md-button href="#"> settings </md-button></li>
+			<li class="dropdown text-normal nav-profile" uib-dropdown
+				is-open="status.isopenProfile"><md-button ng-click="onHome()"
+					class="dropdown-toggle" uib-dropdown-toggle aria-label="home">
+				home </md-button>
+				
+			<li class="dropdown text-normal nav-profile" uib-dropdown
+				is-open="status.isopenProfile"><md-button ng-click="onSettings()"
+					class="dropdown-toggle" uib-dropdown-toggle aria-label="profile">
+				settings </md-button>
+				<!-- ul
+					class="uib-dropdown-menu with-arrow pull-right dropdown-menu-scaleIn">
+					li><a ng-click="onLinkWearable()" style="cursor: pointer"> <i class="zmdi zmdi-home"></i> <span
+							data-translate="LINK YOUR WEARABLE"></span>
+					</a></li 
+				</ul>--></li>
 
-			<li><md-button href="#/page/signin"> logout </md-button></li>
+			<li class="dropdown langs text-normal" uib-dropdown
+				><md-button class="dropdown-toggle" ng-click="logout()"
+					uib-dropdown-toggle aria-label="logout"> logout </md-button></li>
 
 
 			<!-- li class="dropdown text-normal nav-profile"    uib-dropdown is-open="status.isopenProfile">

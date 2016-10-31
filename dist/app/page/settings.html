@@ -1,22 +1,21 @@
-<div class="page-signup" ng-controller="authCtrl">
+<div class="page page-dashboard" data-ng-controller="DashboardLilyCtrl">
 
-	<div >
-		<div class="main-body">
-			<div class="body-inner">
+	<div class="row ui-section">
+		<div class="col-lg-8 clearfix">
+			<h2 class="section-header">Settings</h2>
+		</div>
+		<div class="col-md-12">
+			<section class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-8 col-lg-offset-2">
 
-				<div class="card bg-white">
-					<div class="card-content">
-						<section class="logo text-center">
-							<h1>
-								<a href="#/">{{main.brand}}</a>
-							</h1>
-						</section>
-
-						<form class="form-validation" name="registerForm">
-							<fieldset>
-								<div class="form-group">
-									<div class="ui-input-group">
-										<md-input-container class="md-block"> <input
+							<div layout="column" ng-cloak
+								class="md-inline-form inputdemoBasicUsage">
+								<md-content layout-padding>
+								<form class="form-validation" name="settingsForm">
+									<div layout layout-sm="column">
+										<md-input-container flex> <input
 											type="text" name="firstname" required class="form-control"
 											required ng-model="newUser.firstname" data-ng-maxlength=30
 											aria-label="firstname"> <span class="input-bar"></span>
@@ -27,11 +26,7 @@
 											<div ng-message="maxlength">Field is too long</div>
 										</div>
 										</md-input-container>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="ui-input-group">
-										<md-input-container class="md-block"> <input
+										<md-input-container flex> <input
 											type="text" name="lastname" required class="form-control"
 											required ng-model="newUser.lastname" aria-label="lastname"
 											data-ng-maxlength=30> <span class="input-bar"></span>
@@ -43,15 +38,14 @@
 										</div>
 										</md-input-container>
 									</div>
-								</div>
-								<div class="form-group">
-									<div class="ui-input-group">
-										<md-input-container class="md-block"> <input
+
+									<div layout layout-sm="column">
+										<md-input-container flex> <input disabled
 											type="text" name="email" required class="form-control"
 											name="email" required ng-model="newUser.email"
 											ng-pattern="/^.+@.+\..+$/" aria-label="email"
 											data-ng-maxlength=50> <span class="input-bar"></span>
-										<label>Email</label>
+										<label>Username</label>
 										<div ng-messages="registerForm.email.$error" multiple
 											ng-if='registerForm.email.$dirty'>
 											<div ng-message="required">Email is required.</div>
@@ -60,12 +54,11 @@
 										</div>
 										</md-input-container>
 									</div>
-								</div>
-								<div class="form-group">
-									<div class="ui-input-group">
-										<md-input-container class="md-block"> <input
-											name="password" type="password" required class="form-control"
-											required ng-model="newUser.password" aria-label="password"
+
+									<div layout layout-sm="column">
+										<md-input-container flex> <input
+											name="password" type="password" class="form-control"
+											ng-model="newUser.password" aria-label="password"
 											data-ng-maxlength=50> <span class="input-bar"></span>
 										<label>Password</label>
 										<div ng-messages="registerForm.password.$error" multiple
@@ -74,13 +67,9 @@
 											<div ng-message="maxlength">Field is too long</div>
 										</div>
 										</md-input-container>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="ui-input-group">
-										<md-input-container class="md-block"> <input
-											name="password" type="password" required class="form-control"
-											required ng-model="newUser.repassword"
+										<md-input-container flex> <input
+											name="password" type="password" class="form-control"
+											ng-model="newUser.repassword"
 											aria-label="repassword" data-ng-maxlength=50> <span
 											class="input-bar"></span> <label>Retype Password</label>
 										<div ng-messages="registerForm.repassword.$error" multiple
@@ -90,11 +79,9 @@
 										</div>
 										</md-input-container>
 									</div>
-								</div>
-
-								<div class="form-group">
-									<div class="ui-input-group">
-										<md-input-container class="md-block"> <input
+									
+									<div layout layout-sm="column">
+										<md-input-container flex> <input
 											type="text" name="company" required class="form-control"
 											required ng-model="newUser.company" data-ng-maxlength=100
 											aria-label="company"> <span class="input-bar"></span>
@@ -105,12 +92,7 @@
 											<div ng-message="maxlength">Field is too long</div>
 										</div>
 										</md-input-container>
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<div class="ui-input-group">
-										<md-input-container class="md-block"> <input
+										<md-input-container flex> <input
 											type="text" name="department" required class="form-control"
 											required ng-model="newUser.department" data-ng-maxlength=100
 											aria-label="department"> <span class="input-bar"></span>
@@ -122,43 +104,24 @@
 										</div>
 										</md-input-container>
 									</div>
-								</div>
-								
-								<div class="form-group">
-									<div class="ui-input-group">
-										<a href="javascript:;" ng-click="onLinkWearable()">LINK
-											YOUR WEARABLE</a>
-									</div>
-								</div>
+									
+									
+									<div class="card-action no-border text-right">
+										<md-button ng-click="onHome()"
+											class="md-raised btn-w-md md-primary">Cancel</md-button>
 
-								<div class="divider"></div>
-								<div class="form-group">
-									<p class="text-small">
-										By clicking on sign up, you agree to <a href="javascript:;"><i>terms</i></a>
-										and <a href="javascript:;"><i>privacy policy</i></a>
-									</p>
-								</div>
-							</fieldset>
-						</form>
-					</div>
-					<div class="card-action no-border text-right">
-						<a href="#/page/signin">Login</a> <a href="javascript:;"
-							ng-click="signup()" class="color-primary"
-							data-ng-disabled="!canSubmitRegistration()">Sign Up</a>
+										<md-button type="submit" ng-click="onSaveSettings()"
+											class="md-raised btn-w-md md-primary">Save</md-button>
+									</div>
+								</form>
+								</md-content>
+							</div>
+
+						</div>
 					</div>
 				</div>
-
-			</div>
+			</section>
 		</div>
 	</div>
 
-	<script type="text/ng-template" id="modalWindow.html">                        
-                            <div class="modal-body">
-                                <iframe width="100%" height="500" ng-src="{{detailFrame}}" style="border: none"></iframe>
-                            </div>
-                            <div class="modal-footer">
-                                <button ui-wave class="btn btn-flat btn-default" ng-click="cancel()">Cancel</button>
-                                <button ui-wave class="btn btn-flat btn-primary" ng-click="ok()">OK</button>
-                            </div>
-                        </script>
 </div>
